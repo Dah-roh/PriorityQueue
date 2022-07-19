@@ -1,10 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer {
+public class Customer implements Comparable<Customer>{
     private String name;
     private List<Product> cart = new ArrayList<>();
     private double wallet;
+
+    public Customer() {
+
+    }
 
     public String getName() {
         return name;
@@ -34,5 +38,10 @@ public class Customer {
         this.name = name;
         this.cart = cart;
         this.wallet = wallet;
+    }
+
+    @Override
+    public int compareTo(Customer o) {
+        return 0;
     }
 }

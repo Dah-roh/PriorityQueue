@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class CustomerServiceImplementation implements CustomerImplementation{
     private PriorityQueue<CustomerDTO> customerPreferenceQueue = new PriorityQueue<>(5, new CustomerDTO());
@@ -49,18 +46,22 @@ public class CustomerServiceImplementation implements CustomerImplementation{
     @Override
     public void buyProduct(Queue<Customer> fifo,
                            Map<String, PriorityQueue<CustomerDTO>> priorityQueueMap) {
+                //we peeking through the queue without removing to know who the first person is...
 
-        //we peeking through the queue without removing to know who the first person is...
-            fifo.peek().getCart().forEach(product1 -> {
-            CustomerDTO removedCustomer =  new CustomerDTO();
+                assert fifo.peek() != null;
+                fifo.peek().getCart().forEach(product1 -> {
+                CustomerDTO removedCustomer;
 
-            //if the priorityQueue is not empty continue to perform the next comment..
-            // for each product in the person's cart get the MappedQueue and sell the product...
-                while(priorityQueueMap.size()!=0) {
-                removedCustomer = priorityQueueMap.get(product1.getName()).poll();
+                //if the priorityQueue is not empty continue to perform the next comment..
+                // for each product in the person's cart get the MappedQueue and sell the product...
+
+                while(priorityQueueMap.size()>0) {
                 //print out the customers removed and their product name...
-                System.out.println("You have attended to " + removedCustomer
-                        .getName() + "from the " + product1.getName() + " queue");
+                    if (Objects.nonNull(priorityQueueMap.get(product1.getName()).poll())) {
+                        removedCustomer = priorityQueueMap.get(product1.getName()).poll();
+                        System.out.println("You have attended to " + removedCustomer
+                                .getName() + "from the " + product1.getName() + " queue");
+                    }
             }
         });
     }
