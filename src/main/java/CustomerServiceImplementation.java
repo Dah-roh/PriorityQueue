@@ -51,17 +51,13 @@ public class CustomerServiceImplementation implements CustomerImplementation{
                 assert fifo.peek() != null;
                 fifo.peek().getCart().forEach(product1 -> {
                 CustomerDTO removedCustomer;
-
                 //if the priorityQueue is not empty continue to perform the next comment..
                 // for each product in the person's cart get the MappedQueue and sell the product...
-
-                while(priorityQueueMap.size()>0) {
+                while(priorityQueueMap.get(product1.getName()).poll()!=null) {
                 //print out the customers removed and their product name...
-                    if (Objects.nonNull(priorityQueueMap.get(product1.getName()).poll())) {
                         removedCustomer = priorityQueueMap.get(product1.getName()).poll();
                         System.out.println("You have attended to " + removedCustomer
                                 .getName() + "from the " + product1.getName() + " queue");
-                    }
             }
         });
     }
