@@ -36,9 +36,10 @@ public class CustomerServiceImplementation implements CustomerImplementation{
             customerDTO.setQuantity(product.getQuantity());
             if(priorityQueueMap.containsKey(product.getName())){
                 priorityQueueMap.get(product.getName()).add(customerDTO);
+            }else {
+                customerPreferenceQueue.add(customerDTO);
+                priorityQueueMap.put(product.getName(), customerPreferenceQueue);
             }
-            customerPreferenceQueue.add(customerDTO);
-            priorityQueueMap.put(product.getName(), customerPreferenceQueue);
         });
         System.out.println("You have added "+ customer.getName()+" to the FIFO QUEUE ");
     }
@@ -53,11 +54,11 @@ public class CustomerServiceImplementation implements CustomerImplementation{
                 CustomerDTO removedCustomer;
                 //if the priorityQueue is not empty continue to perform the next comment..
                 // for each product in the person's cart get the MappedQueue and sell the product...
-                while(priorityQueueMap.get(product1.getName()).poll()!=null) {
+                while(priorityQueueMap.get(product1.getName()).peek()!=null) {
                 //print out the customers removed and their product name...
                         removedCustomer = priorityQueueMap.get(product1.getName()).poll();
                         System.out.println("You have attended to " + removedCustomer
-                                .getName() + "from the " + product1.getName() + " queue");
+                                .getName() + " from the " + product1.getName() + " queue");
             }
         });
     }
