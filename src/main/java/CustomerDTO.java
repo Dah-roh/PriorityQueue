@@ -27,6 +27,6 @@ public class CustomerDTO implements Comparator<CustomerDTO> {
 
     @Override
     public int compare(CustomerDTO o1, CustomerDTO o2) {
-        return Long.compare(o1.quantity, o2.quantity);
+        return Long.compare(o2.quantity, o1.quantity);
     }
 }
